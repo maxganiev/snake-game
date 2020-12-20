@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" class="set-screen">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+  <title>Snake</title>
+ <script src="game.js" defer></script>
+</head>
+<body class='set-screen'>
+<nav>
+  <ul>
+    <li><h4>Your current score is:</h4></li>
+    <div>
+    <li><h4>Lifes left:</h4></li>
+    <li></li>
+  </div>
+    <li><h4>Player&#58;</h4></li>
+    <li>
+      <label for="color-picked-indicator">Last saved color of game field</label><br>
+      <div id="color-picked-indicator" style="width: 60px; height: 40px;"></div>
+    </li>
+  </ul>
+</nav>
+ <!--OUTER DIV: WELCOME PAGE--> 
+ <div id="welcome-div">
+  <h1>snake game</h1> 
+  <div id="localstorage-setup" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h3>Enter your name</h3>
+  <label for="user-name-input"></label>
+  <input type="text" id="user-name-input" name="name">
+  <br>
+  <label for="color-picker">Set up game field color</label><br>
+  <input type="color" id="color-picker" style="width: 100px; height: 30px;">
+  <br>
+  <button id="submit-user-choice"><h5>Remember my choice</h5></button>
+  </div>
+  <button id="btn-start-game"><h5>Let&#39;s roll &#33;</h5></button>
+  <button id="forget-user-choice"><h5>Forget my choice</h5></button>
+  <h2 id="highscore">Your highscore:</h2>
+</div>
+<section>
+  <canvas></canvas>
+</section>
+<footer>
+  <img src="brand-logo-transparent.png" style="width: calc(8.5rem + 1vmin); height: calc(6.5rem + 1vmin);">
+  <h3 class="text-in-logo">
+    powered by ganiev team <span class="tm-span">&trade;</span>
+  </h3>
+</footer>
+</body>
+</html>
