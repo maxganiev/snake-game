@@ -424,7 +424,6 @@ function collisionDetector(){
       console.log(highscoreCounter)
       if(counter > highscoreCounter){
         localStorage.setItem('highscoreCounter', counter)
-        console.log('loshara')
       }
     }
 }

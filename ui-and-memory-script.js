@@ -80,7 +80,6 @@ function fillCanvas(){
   btn_submit_userChoice.addEventListener('click',()=>{
     localStorage.setItem('background', colorPicker.value);
     localStorage.setItem('userName', userChoice_input.value);
-    // localStorage.setItem('highscoreCounter', counter);
     fillCanvas()
   })
 
