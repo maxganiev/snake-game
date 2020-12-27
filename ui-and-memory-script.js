@@ -195,5 +195,9 @@ function show_text_to_start(){
     i_sound_off.style.display = 'flex';
     i_sound_on.style.display = 'none';
   })
+
+let set_IE = document.documentElement;
+set_IE.setAttribute('data-useragent',  navigator.userAgent);
+set_IE.setAttribute('data-platform', navigator.platform );
   
 
