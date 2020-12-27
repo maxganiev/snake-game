@@ -1,3 +1,9 @@
+:root {
+  --main-el-color: #1adb0f;
+  --sub-el-color: #c7182f;
+  --txt-shadow: 1px 1px 1.5px #333;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,8 +18,19 @@
   font-size: calc(0.5rem + 1vmin);
 }
 
+body {
+  background: url("./main-background.png") center center/cover;
+}
+
 li {
   list-style-type: none;
+}
+
+nav {
+  min-width: 20vw;
+  max-width: 100%;
+  min-height: 5vh;
+  max-height: 20%;
 }
 
 nav ul {
@@ -21,43 +38,141 @@ nav ul {
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 0.5rem;
+  overflow: hidden;
+  font-size: calc(0.4rem + 1vmin);
+}
+
+nav ul li i {
+  color: var(--sub-el-color);
+  text-shadow: var(--txt-shadow);
+}
+
+nav ul li i:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: transform 0.4s ease-in;
 }
 
 #welcome-div {
+  position: relative;
   min-width: 100%;
   max-width: fit-content;
   min-height: 80vh;
   max-height: fit-content;
-  background: url(./background.jpg) center center/cover;
+  background: url(./background.jpg) 0 80% / cover;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-end;
   text-align: center;
+  color: #fff;
+  text-shadow: var(--txt-shadow);
+  font-size: calc(0.48rem + 1vmin);
+}
+
+input {
+  border-radius: 6px;
+  border: none;
+}
+
+#localstorage-setup-upper-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 6%;
+  line-height: 1.4rem;
+  background: rgba(0, 0, 0, 0.2);
+  min-width: 24vw;
+  min-height: 40vh;
+}
+
+#localstorage-setup-lower-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 6%;
+  line-height: 3.4rem;
+  background: rgba(0, 0, 0, 0.2);
+  min-width: 24vw;
+  min-height: 40vh;
 }
 
 button {
   cursor: pointer;
   border-radius: 3px;
-  width: 14vw;
+  width: 9vw;
   border: none;
-  min-width: 9rem;
+  min-width: 60px;
+  margin-top: 3%;
+  background-color: rgba(255, 255, 255, 0);
+  border: 0.4px var(--sub-el-color) solid;
+  color: #fff;
+  text-shadow: var(--txt-shadow);
 }
 
+#submit-user-choice:hover {
+  background-color: var(--sub-el-color);
+  transition: all 0.3s ease-in-out;
+}
+
+#forget-user-choice:hover {
+  background-color: var(--sub-el-color);
+  transition: all 0.3s ease-in-out;
+}
+
+#btn-start-game {
+  text-shadow: var(--txt-shadow);
+  animation-name: button-fillstyle;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease-out;
+}
+
+#gameover-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  max-width: fit-content;
+  min-height: 100%;
+  max-height: fit-content;
+  background: url(./gameover-background.jpeg) 0 90% / cover;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  text-shadow: var(--txt-shadow);
+  font-size: calc(0.48rem + 1vmin);
+}
 section {
   width: 90%;
+  height: 80vh;
   margin: 0 auto;
   position: absolute;
   top: 10%;
   left: 6%;
   visibility: hidden;
+  overflow: hidden;
 }
 
 footer {
   position: relative;
-  width: 100%;
-  height: 10%;
+  min-width: 100%;
+  max-width: fit-content;
+  min-height: 20vh;
+  max-height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
 footer .text-in-logo {
@@ -73,5 +188,122 @@ footer .text-in-logo {
 }
 
 footer .text-in-logo .tm-span {
-  color: #c7182f;
+  color: var(--sub-el-color);
+}
+
+footer div:first-child {
+  flex: 1;
+}
+
+footer div:nth-child(2) {
+  flex: 2;
+  text-align: center;
+}
+
+footer div:nth-child(2) ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+footer div:nth-child(2) ul li h2 {
+  color: var(--sub-el-color);
+  text-shadow: var(--txt-shadow);
+}
+
+footer div:nth-child(2) ul li:nth-child(1) img {
+  animation-name: animate-w;
+  animation-duration: 0.6s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease-out;
+  transform: translateY(2.4rem);
+  width: calc(1.5rem + 1vmin);
+  height: calc(1.5rem + 1vmin);
+}
+
+footer div:nth-child(2) ul li:nth-child(2) img {
+  animation-name: animate-s;
+  animation-duration: 0.6s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease-out;
+  transform: translateY(0.3rem) rotate(180deg);
+  width: calc(1.5rem + 1vmin);
+  height: calc(1.5rem + 1vmin);
+}
+
+footer div:nth-child(2) ul li:nth-child(3) img {
+  animation-name: animate-d;
+  animation-duration: 0.6s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease-out;
+  transform: translateX(0) translateY(2.3rem) rotate(90deg);
+  width: calc(1.5rem + 1vmin);
+  height: calc(1.5rem + 1vmin);
+}
+
+footer div:nth-child(2) ul li:nth-child(4) img {
+  animation-name: animate-a;
+  animation-duration: 0.6s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease-out;
+  transform: translateX(0) translateY(2.3rem) rotate(270deg);
+  width: calc(1.5rem + 1vmin);
+  height: calc(1.5rem + 1vmin);
+}
+
+footer div:nth-child(2) ul li:nth-child(5) img {
+  width: calc(1.5rem + 1vmin);
+  height: calc(1.5rem + 1vmin);
+}
+
+@keyframes button-fillstyle {
+  from {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  to {
+    background-color: var(--sub-el-color);
+  }
+}
+
+@keyframes animate-w {
+  from {
+    transform: translateY(2.4);
+  }
+  to {
+    transform: translateY(0.3rem);
+  }
+}
+
+@keyframes animate-s {
+  from {
+    transform: translateY(0.3rem) rotate(180deg);
+  }
+  to {
+    transform: translateY(2.4rem) rotate(180deg);
+  }
+}
+
+@keyframes animate-d {
+  from {
+    transform: translateX(0) translateY(2.3rem) rotate(90deg);
+  }
+  to {
+    transform: translateX(1.6rem) translateY(2.3rem) rotate(90deg);
+  }
+}
+
+@keyframes animate-a {
+  from {
+    transform: translateX(0) translateY(2.3rem) rotate(270deg);
+  }
+  to {
+    transform: translateX(-1.6rem) translateY(2.3rem) rotate(270deg);
+  }
 }

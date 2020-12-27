@@ -5,27 +5,14 @@ let sectionWidth = Math.floor(section.getBoundingClientRect().width);
 let sectionHeight = Math.floor(section.getBoundingClientRect().height);
 const canvas = document.querySelector('canvas');
 let width = canvas.width = sectionWidth;
-let height = canvas.height = sectionHeight*3.2;
+let height = canvas.height = sectionHeight;
 let ctx = canvas.getContext('2d');
 const h4 = document.querySelectorAll('h4');
 const colorPicker = document.querySelector('#color-picker');
 const list = document.querySelectorAll('li');
 let highscore = document.querySelector('#highscore');
-
-//console.log(Math.floor(Number(getComputedStyle(section).getPropertyValue('height').slice(0,-2))))
-
-function do_UI_responsive(){
-sectionWidth = Math.floor(section.getBoundingClientRect().width);
-sectionHeight = Math.floor(section.getBoundingClientRect().height);
-width = canvas.width = sectionWidth;
-height = canvas.height = sectionHeight;
-fillCanvas()
-snakeArray.forEach((el)=>{el.drawSnake()})
-snakeHead.forEach((el)=>{el.drawSnake()})
-meal.createMeal()
-}
-
-
+const footer = document.querySelector('footer');
+const nav = document.querySelector('nav');
 
 
 
@@ -39,10 +26,9 @@ let counter_text = document.createElement('h4');
 
 
 //counter to keep track of earned scored (1 eaten ball = 10 scores)
-let counter = 0;
-counter_text.textContent = counter;
-counter_text.style.transform = 'translateX(40px)'
-h4[0].appendChild(counter_text)
+let counter;
+
+
 
 
 /**
@@ -51,6 +37,7 @@ h4[0].appendChild(counter_text)
  * @description balance of lifes left; each time the snake hits itself (anywhere save the very last part of it) - life counter is being decreased by one
  */
 let lifes_balance = 3;
+
 
 
 /**
@@ -75,6 +62,8 @@ function lifesLeft(){
 //calling the function when the game first got loaded
 lifesLeft()
 
+
+
 /**
  * @function degToRad - the function to convert radians to degrees
  * @param {Number} degrees - the number to be converted
@@ -83,7 +72,6 @@ lifesLeft()
 function degToRad(degrees) {
   return degrees * Math.PI / 180;
 };
-
 
 
 
@@ -97,11 +85,15 @@ function random(min,max){
   return Math.floor(Math.random()*(max-min)+min)
 }
 
+
+
 //default coordinates of the snake
 let pos = {
-  x: width/2,
-  y: height/2
+  x: 20,
+  y: 20
 }
+
+
 
 /**
  * @variable dx
@@ -110,13 +102,14 @@ let pos = {
  */
 let dx = 20;
 
+
+
 /**
  * @variable dy
  * @type {number}
  * @description snake's vertical velocity
  */
 let dy = 20;
-
 
 
 
@@ -150,15 +143,22 @@ class Obj{
     ctx.arc(this.x, this.y, this.size, this.startAngle, this.endAngle,this.clockwise);
     ctx.closePath();
     ctx.fill();
+
+    ctx.strokeStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, this.startAngle, this.endAngle,this.clockwise);
+    ctx.closePath();
+    ctx.stroke();
    }
   }
 }
 
 //snake's body parts
-let partOne = new Obj('#1adb0f',pos.x, pos.y+20,9,degToRad(0),degToRad(360),true);
-let partTWo = new Obj('#1adb0f',pos.x+20, pos.y+20,9,degToRad(0),degToRad(360),true);
-let partThree = new Obj('#1adb0f',pos.x+40, pos.y+20,9,degToRad(0),degToRad(360),true);
-let partFour = new Obj('#1adb0f',pos.x+60, pos.y+20,9,degToRad(0),degToRad(360),true);
+let partOne,
+    partTWo,
+    partThree,
+    partFour;
+
 
 
 /**
@@ -166,15 +166,19 @@ let partFour = new Obj('#1adb0f',pos.x+60, pos.y+20,9,degToRad(0),degToRad(360),
  * @type {Array}
  * @description the snake's body
  */
-let snakeArray = [partOne, partTWo, partThree, partFour];
-console.log(snakeArray);
+let snakeArray = [];
+
+
+
 
 /**
  * @var snake_Body_Pushed
  * @type {number}
  * @description the variable to refer snake body's first (though technically last) part that is being dynamically updated
  */
-let snake_Body_Pushed = snakeArray[snakeArray.length-1]
+let snake_Body_Pushed;
+
+
 
   /**
    * @var pos_shift
@@ -194,7 +198,6 @@ let meal = new Obj(`rgba(${random(20,255)}, ${random(20,255)}, ${random(20,255)}
 
 
 
-
 /**
  * @var key
  * @type {boolean}
@@ -207,12 +210,16 @@ let key = {
   d: false
 }
 
+
+
 /**
  * @var animate
  * @type {Function}
  * @description the var that is responsible for callback of inbuilt setInterval function
  */
 let animate;
+
+
 
 /**
  * @var t
@@ -221,12 +228,15 @@ let animate;
  */
 let t = 100;
 
+
+
 /**
  * @var collided
  * @type {boolean}
  * @description used to detect the fact a meal was eaten; if it was - game speed's getting accelerated
  */
 let collided = false;
+
 
 
 /**
@@ -240,11 +250,15 @@ function makeSnakeAlive(){
   animate = setInterval(render,t);
 }
 
+
+
 //set of variables to prevent simulteneous movement of the snake into opposite directions (code refactoring might be considered)
 let upwards = false;
 let downwards = false;
 let leftwards = false;
 let rightwards = false;
+
+
 
 //event handler: anonymous arrow function
 window.addEventListener('keydown', (e)=>{
@@ -293,7 +307,13 @@ window.addEventListener('keydown', (e)=>{
     makeSnakeAlive()
     e.stopPropagation()
     }
-    break;    
+    break; 
+    
+    case 'Space':
+    clearInterval(animate);
+    show_text_to_start();
+    e.stopPropagation();
+    break;
   }
 }
 })
@@ -317,6 +337,8 @@ function clrCtx(){
     ctx.fill();
   }
 }
+
+
 
 //main function to control snake's movement
 function update(){ 
@@ -365,12 +387,16 @@ snakeHead.forEach((el)=>{
 })
 }
 
+
+
 /**
  * @var crashed
  * @type {boolean}
  * @description gets true if snake hits itself
  */
 let crashed = false;
+
+
 
 //vars used to indicate difference between snake's head and meal along X and Y axis
 let x_dif;
@@ -403,7 +429,10 @@ function collisionDetector(){
   //localStorage.setItem('highscoreCounter', counter);
   setTimeout(()=>{counter_text.style.transform = 'scale(1) translate(40px)'; counter_text.style.color = '#000'; counter_text.style.fontWeight = 'normal';},1000)
   collided = true;
+  homer_wohoo.play()
+  audioMuted === false?homer_wohoo.muted=false:homer_wohoo.muted = true;
   }
+
 
   
   //in-depth description of each condition:
@@ -414,14 +443,17 @@ function collisionDetector(){
     if(snakeArray[snakeArray.length-1].x === snakeArray[i].x && snakeArray[snakeArray.length-1].y === snakeArray[i].y && i!==snakeArray.length-2 && i!==0){
       lifes_balance--;
       crashed = true;
+      homer_doh.play()
+      audioMuted === false?homer_doh.muted = false:homer_doh.muted = true;
     }
     }
     if(crashed === true){
       lifesLeft()
     }
     if(lifes_balance < 1){
-      clearInterval(animate)
-      console.log(highscoreCounter)
+      clearInterval(animate);
+      console.log(highscoreCounter);
+      gameover_div.style.display = 'flex';
       if(counter > highscoreCounter){
         localStorage.setItem('highscoreCounter', counter)
       }
@@ -430,10 +462,20 @@ function collisionDetector(){
 
 
 /**
+ * @var gameStarted;
+ * @type {boolean};
+ * @description the var to indicate if the game has been started
+ */
+let gameStarted = false;
+
+
+
+/**
  * @function render
  * @description the main function of the game to render everything
  */
 function render(){
+  gameStarted = true;
   clrCtx();
   update()
   snakeArray.forEach((el)=>{
@@ -444,26 +486,54 @@ function render(){
 }
 
 
-snake_Body_Pushed = snakeArray[snakeArray.length-1]
-
-pos_shift = [20,-7,20,7,34,0,20,-9,20,9,20,-9,20,9,34,-5,34,5]
-
-sideL = new Obj('#1adb0f',snake_Body_Pushed.x+pos_shift[0], snake_Body_Pushed.y+pos_shift[1], 8, degToRad(0),degToRad(360), true);   
-sideR = new Obj('#1adb0f', snake_Body_Pushed.x+pos_shift[2], snake_Body_Pushed.y+pos_shift[3], 8, degToRad(0),degToRad(360), true);
-nose = new Obj('#1adb0f', snake_Body_Pushed.x+pos_shift[4], snake_Body_Pushed.y+pos_shift[5], 11, degToRad(0),degToRad(360), true);
-eyeL = new Obj('#eded05', snake_Body_Pushed.x+pos_shift[6], snake_Body_Pushed.y+pos_shift[7], 3, degToRad(0),degToRad(360), true);
-eyeR = new Obj('#eded05', snake_Body_Pushed.x+pos_shift[8], snake_Body_Pushed.y+pos_shift[9], 3, degToRad(0),degToRad(360), true);
-appleL = new Obj('#000', snake_Body_Pushed.x+pos_shift[10], snake_Body_Pushed.y+pos_shift[11], 1, degToRad(0),degToRad(360), true);
-appleR = new Obj('#000', snake_Body_Pushed.x+pos_shift[12], snake_Body_Pushed.y+pos_shift[13], 1, degToRad(0),degToRad(360), true);
-nostrilL = new Obj('#000', snake_Body_Pushed.x+pos_shift[14], snake_Body_Pushed.y+pos_shift[15], 1, degToRad(0),degToRad(360), true);
-nostrilR = new Obj('#000', snake_Body_Pushed.x+pos_shift[16], snake_Body_Pushed.y+pos_shift[17], 1, degToRad(0),degToRad(360), true);
+let sideL,
+    sideR,
+    nose,
+    eyeL,
+    eyeR,
+    appleL,
+    appleR,
+    nostrilL,
+    nostrilR;
 
 /**
  * @var snakeHead
  * @type {Array}
  * @description the snake's head consisting on 9 parts and being dynamically rendered
  */
-snakeHead = [sideL, sideR, nose, eyeL, eyeR, appleL, appleR,nostrilL, nostrilR];
+let snakeHead = [];
+
+
+function draw_snake_by_default(){
+  lifes_balance = 3;
+    pos = {
+      x:20,
+      y:20
+    }
+    partOne = new Obj('#1adb0f',pos.x, pos.y+20,9,degToRad(0),degToRad(360),true);
+    partTWo = new Obj('#1adb0f',pos.x+20, pos.y+20,9,degToRad(0),degToRad(360),true);
+    partThree = new Obj('#1adb0f',pos.x+40, pos.y+20,9,degToRad(0),degToRad(360),true);
+    partFour = new Obj('#1adb0f',pos.x+60, pos.y+20,9,degToRad(0),degToRad(360),true);
+    snakeArray = [partOne, partTWo, partThree, partFour];
+    console.log(snakeArray);
+    counter = 0;
+    counter_text.textContent = counter;
+    counter_text.style.transform = 'translateX(40px)'
+    h4[0].appendChild(counter_text)
+    snake_Body_Pushed = snakeArray[snakeArray.length-1]
+    sideL = new Obj('#1adb0f',snake_Body_Pushed.x+pos_shift[0], snake_Body_Pushed.y+pos_shift[1], 8, degToRad(0),degToRad(360), true);   
+    sideR = new Obj('#1adb0f', snake_Body_Pushed.x+pos_shift[2], snake_Body_Pushed.y+pos_shift[3], 8, degToRad(0),degToRad(360), true);
+    nose = new Obj('#1adb0f', snake_Body_Pushed.x+pos_shift[4], snake_Body_Pushed.y+pos_shift[5], 11, degToRad(0),degToRad(360), true);
+    eyeL = new Obj('#eded05', snake_Body_Pushed.x+pos_shift[6], snake_Body_Pushed.y+pos_shift[7], 3, degToRad(0),degToRad(360), true);
+    eyeR = new Obj('#eded05', snake_Body_Pushed.x+pos_shift[8], snake_Body_Pushed.y+pos_shift[9], 3, degToRad(0),degToRad(360), true);
+    appleL = new Obj('#000', snake_Body_Pushed.x+pos_shift[10], snake_Body_Pushed.y+pos_shift[11], 1, degToRad(0),degToRad(360), true);
+    appleR = new Obj('#000', snake_Body_Pushed.x+pos_shift[12], snake_Body_Pushed.y+pos_shift[13], 1, degToRad(0),degToRad(360), true);
+    nostrilL = new Obj('#000', snake_Body_Pushed.x+pos_shift[14], snake_Body_Pushed.y+pos_shift[15], 1, degToRad(0),degToRad(360), true);
+    nostrilR = new Obj('#000', snake_Body_Pushed.x+pos_shift[16], snake_Body_Pushed.y+pos_shift[17], 1, degToRad(0),degToRad(360), true);
+    snakeHead = [sideL, sideR, nose, eyeL, eyeR, appleL, appleR,nostrilL, nostrilR];
+}
+ 
+  draw_snake_by_default()
 
 const externalScript = document.createElement('script');
 externalScript.src = 'ui-and-memory-script.js';

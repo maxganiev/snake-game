@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/dd7cb428b6.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="style.css">
   <title>Snake</title>
  <script src="game.js" defer></script>
 </head>
-<body class='set-screen'>
+
+<body>
 <nav>
   <ul>
     <li><h4>Your current score is:</h4></li>
@@ -19,36 +21,86 @@
   </div>
     <li><h4>Player&#58;</h4></li>
     <li>
-      <label for="color-picked-indicator">Last saved color of game field</label><br>
-      <div id="color-picked-indicator" style="width: 60px; height: 40px;"></div>
+      <label for="color-picked-indicator">Game field color</label><br>
+      <div id="color-picked-indicator" style="width: 60px; height: 20px;"></div>
+    </li>
+    <li>
+      <i class="fas fa-volume-up" style="display: flex;"><h4>Turn sound off</h4></i>
+      <i class="fas fa-volume-mute" style="display: none;"><h4>Turn sound on</h4></i>
     </li>
   </ul>
 </nav>
+
  <!--OUTER DIV: WELCOME PAGE--> 
  <div id="welcome-div">
-  <h1>snake game</h1> 
-  <div id="localstorage-setup" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <h3>Enter your name</h3>
+  <!-- <h1>snake game</h1>  -->
+  <div id="localstorage-setup-upper-panel">
+    <p>enter your name&#58;</p>
   <label for="user-name-input"></label>
   <input type="text" id="user-name-input" name="name">
   <br>
-  <label for="color-picker">Set up game field color</label><br>
-  <input type="color" id="color-picker" style="width: 100px; height: 30px;">
+  <label for="color-picker">set up game field color</label>
+  <input type="color" id="color-picker" style="width: 80px; height: 20px;">
   <br>
-  <button id="submit-user-choice"><h5>Remember my choice</h5></button>
+  <button id="submit-user-choice"><h5>remember my choice</h5></button>
   </div>
-  <button id="btn-start-game"><h5>Let&#39;s roll &#33;</h5></button>
+
+  <div id="localstorage-setup-lower-panel">
+  <button id="btn-start-game"><h5>let&#39;s roll &#33;</h5></button>
   <button id="forget-user-choice"><h5>Forget my choice</h5></button>
-  <h2 id="highscore">Your highscore:</h2>
+  <h2 id="highscore" style="color: var(--sub-el-color); font-weight: bold; text-shadow: 1px 1px 1.5px #000; font-size: calc(0.9rem + 1vmin);">Your highscore:</h2>
+  </div>
 </div>
+
+
+
 <section>
-  <canvas></canvas>
+  <canvas><p>Regret but seems your browser doesn't support HTML5 Canvas &#58;&#40;</p></canvas>
+<!--GAME OVER DIV-->
+<div id="gameover-div">
+  <button id="btn-reload">Get back to main page</button>
+  <button id="btn-restart">Restart</button>
+ </div>  
 </section>
+
 <footer>
+  <div>
   <img src="brand-logo-transparent.png" style="width: calc(8.5rem + 1vmin); height: calc(6.5rem + 1vmin);">
   <h3 class="text-in-logo">
     powered by ganiev team <span class="tm-span">&trade;</span>
   </h3>
+</div>
+<div>
+  <h3 style="color: var(--sub-el-color); font-weight: 800; font-size: calc(1.2rem + 1vmin); text-shadow: var(--txt-shadow);">How to play&#58;</h3>
+  <ul>
+    <li>
+      <img src="head.png">
+      <h2>W</h2>
+      <p>go upwards</p>
+    </li>
+    <li>
+      <img src="head.png">
+      <h2>S</h2>
+      <p>go downwards</p>
+    </li>
+    <li>
+      <img src="head.png">
+      <h2>D</h2>
+      <p>go rightwards</p>
+    </li>
+    <li>
+      <img src="head.png">
+      <h2>A</h2>
+      <p>go leftwards</p>
+    </li>
+    <li>
+      <img src="head.png">
+      <h2>SPACE</h2>
+      <p>pause game</p>
+    </li>
+  </ul>
+</div> 
 </footer>
+
 </body>
 </html>
