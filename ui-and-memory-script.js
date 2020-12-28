@@ -21,7 +21,6 @@ let highscoreCounter = localStorage.getItem('highscoreCounter');
  * @description main function to render and adjust canvas and its content
  */
 function fillCanvas(){
-leftwards === true?rightwards = false:rightwards = true;  
 sectionWidth = Math.floor(section.getBoundingClientRect().width);
 sectionHeight = Math.floor(section.getBoundingClientRect().height); 
 width = canvas.width = sectionWidth;
