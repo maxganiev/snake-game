@@ -505,6 +505,7 @@ let snakeHead = [];
 
 
 function draw_snake_by_default(){
+  t = 100;
   lifes_balance = 3;
     pos = {
       x:20,
