@@ -1,5 +1,3 @@
-console.log('subsidiary script has been downloaded successfully ;P')
-
 /**
  * @var background
  * @type {string}
@@ -129,7 +127,7 @@ function show_text_to_start(){
     x: width/2,
     y: height/2
   }
-  if(gameStarted === false){
+  if(gameStarted === false && touchscreen === false){
   ctx.fillStyle = '#c7182f';
   ctx.beginPath();
   ctx.font = 'calc(1.6rem + 1vmin) georgia ';
@@ -145,7 +143,7 @@ function show_text_to_start(){
   ctx.closePath();
   ctx.strokeText('hit D to start game', pos.x+10, pos.y-60) 
 }
-  else if(gameStarted === true){
+  else if(gameStarted === true && touchscreen === false){
   ctx.fillStyle = '#c7182f';
   ctx.beginPath();
   ctx.font = 'calc(1.6rem + 1vmin) georgia ';
@@ -161,6 +159,39 @@ function show_text_to_start(){
   ctx.closePath();
   ctx.strokeText('hit WASD to start game', pos.x+10, pos.y-60)   
   }
+
+  else if(gameStarted === false && touchscreen === true){
+    ctx.fillStyle = '#c7182f';
+    ctx.beginPath();
+    ctx.font = 'calc(1.6rem + 1vmin) georgia ';
+    ctx.textAlign = 'center';
+    ctx.closePath();
+    ctx.fillText('pinch to the right to start the game', pos.x+10, pos.y-60)  
+    
+    ctx.strokeStyle = '#fff';
+    ctx.beginPath();
+    ctx.font = 'calc(1.6rem + 1vmin) georgia ';
+    ctx.lineWidth = 0.4;
+    ctx.textAlign = 'center';
+    ctx.closePath();
+    ctx.strokeText('pinch to the right to start the game', pos.x+10, pos.y-60) 
+  }
+    else if(gameStarted === true && touchscreen === true){
+    ctx.fillStyle = '#c7182f';
+    ctx.beginPath();
+    ctx.font = 'calc(1.6rem + 1vmin) georgia ';
+    ctx.textAlign = 'center';
+    ctx.closePath();
+    ctx.fillText('pinch the screen to continue', pos.x+10, pos.y-60)  
+    
+    ctx.strokeStyle = '#fff';
+    ctx.beginPath();
+    ctx.font = 'calc(1.6rem + 1vmin) georgia ';
+    ctx.lineWidth = 0.4;
+    ctx.textAlign = 'center';
+    ctx.closePath();
+    ctx.strokeText('pinch the screen to continue', pos.x+10, pos.y-60)   
+    }
   }
 
   btn_reload.onclick = (()=>document.location.reload());
@@ -199,5 +230,20 @@ function show_text_to_start(){
 let set_IE = document.documentElement;
 set_IE.setAttribute('data-useragent',  navigator.userAgent);
 set_IE.setAttribute('data-platform', navigator.platform );
-  
+
+
+let touchscreen = false;
+let touch_control_diagram = new Image();
+touch_control_diagram.src = 'touch-control.png';
+touch_control_diagram.style.width = '80%';
+touch_control_diagram.style.height = '60%';
+
+
+if(window.matchMedia("(pointer: coarse)").matches) {
+  touchscreen = true;
+  footer.childNodes[3].childNodes[3].style.display = 'none';
+  footer.childNodes[3].appendChild(touch_control_diagram)
+}
+
+
 

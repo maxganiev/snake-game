@@ -310,12 +310,68 @@ window.addEventListener('keydown', (e)=>{
     break; 
     
     case 'Space':
+    e.preventDefault()
     clearInterval(animate);
     show_text_to_start();
     e.stopPropagation();
     break;
   }
 }
+})
+
+
+//functions and vars to handle touch events
+const touch_up_area = document.querySelector('#touch-up-area').addEventListener('touchstart', (e)=>{
+  e.preventDefault();
+  if(upwards=== true){  
+    key.w = true;
+    key.s=key.d=key.a = false;
+    downwards = false;
+    rightwards = leftwards = true;
+    makeSnakeAlive()
+    e.stopPropagation()
+    }
+})
+
+
+const touch_down_area = document.querySelector('#touch-down-area').addEventListener('touchstart', (e)=>{
+  e.preventDefault();
+  if(downwards === true){ 
+    key.s = true;
+    key.w=key.d=key.a = false;
+    upwards = false;
+    rightwards = leftwards = true;
+    makeSnakeAlive()
+    e.stopPropagation()
+    }
+})
+
+const touch_right_area = document.querySelector('#touch-right-area').addEventListener('touchstart', (e)=>{
+  e.preventDefault();
+  if(rightwards === true){ 
+    key.d = true;
+    key.s=key.w=key.a = false;
+    leftwards = false;
+    upwards = downwards = true;
+    makeSnakeAlive()
+    e.stopPropagation()
+    }
+})
+
+const touch_left_area = document.querySelector('#touch-left-area').addEventListener('touchstart', (e)=>{
+  e.preventDefault();
+  if(leftwards === true){ 
+    key.a = true;
+    key.s=key.d=key.w = false;
+    rightwards = false;
+    upwards = downwards = true;
+    makeSnakeAlive()
+    e.stopPropagation()
+    }
+})
+
+canvas.addEventListener('touchstart', (e)=>{
+  if(e.touches.length > 1){clearInterval(animate); show_text_to_start()}
 })
 
 
@@ -516,7 +572,6 @@ function draw_snake_by_default(){
     partThree = new Obj('#1adb0f',pos.x+40, pos.y+20,9,degToRad(0),degToRad(360),true);
     partFour = new Obj('#1adb0f',pos.x+60, pos.y+20,9,degToRad(0),degToRad(360),true);
     snakeArray = [partOne, partTWo, partThree, partFour];
-    console.log(snakeArray);
     counter = 0;
     counter_text.textContent = counter;
     counter_text.style.transform = 'translateX(40px)'

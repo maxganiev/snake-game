@@ -175,6 +175,38 @@ section {
   overflow: hidden;
 }
 
+section #touch-right-area {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 20%;
+}
+
+section #touch-left-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 20%;
+}
+
+section #touch-up-area {
+  position: absolute;
+  top: 0;
+  left: 20.2%;
+  height: 30%;
+  width: 59.4%;
+}
+
+section #touch-down-area {
+  position: absolute;
+  bottom: 0;
+  left: 20.2%;
+  height: 30%;
+  width: 59.4%;
+}
+
 footer {
   position: relative;
   min-width: 100%;
