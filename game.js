@@ -501,6 +501,10 @@ function collisionDetector(){
       crashed = true;
       homer_doh.play()
       audioMuted === false?homer_doh.muted = false:homer_doh.muted = true;
+
+      //to prevent the snake from 'eating' itself by inertia
+      snakeArray[snakeArray.length-1].x = 20;
+      snakeArray[snakeArray.length-1].y = 20; 
     }
     }
     if(crashed === true){
@@ -531,7 +535,6 @@ let gameStarted = false;
  * @description the main function of the game to render everything
  */
 function render(){
-  gameStarted = true;
   clrCtx();
   update()
   snakeArray.forEach((el)=>{

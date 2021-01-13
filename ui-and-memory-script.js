@@ -25,7 +25,7 @@ sectionHeight = Math.floor(section.getBoundingClientRect().height);
 width = canvas.width = sectionWidth;
 height = canvas.height = sectionHeight;
 nav.style.marginBottom = '1rem';
-footer.style.marginTop = '1rem';
+footer.style.marginTop = '1.8rem';
   if(localStorage.getItem('background') && localStorage.getItem('userName')){
     background = localStorage.getItem('background');
     let userName = localStorage.getItem('userName');
@@ -96,9 +96,11 @@ footer.style.marginTop = '1rem';
    
  //UI swtich to game mode
  function switch_to_Game_Mode(){
-   welcome_Div.style.transform = 'translateY(-1000px)';
+   welcome_Div.style.transform = 'translateY(-2000px)';
    welcome_Div.style.transition = 'all 1.4s ease-in-out';
    section.style.visibility = 'visible';
+   gameStarted = true;
+   show_instuctions_for_touchscreens()
    }
  
  
@@ -231,18 +233,48 @@ let set_IE = document.documentElement;
 set_IE.setAttribute('data-useragent',  navigator.userAgent);
 set_IE.setAttribute('data-platform', navigator.platform );
 
-
+/**
+ * @var touchscreen
+ * @type {boolean}
+ * @description the var to indicate if user's device has a touchscreen to apply appropriate styling 
+ */
 let touchscreen = false;
-let touch_control_diagram = new Image();
-touch_control_diagram.src = 'touch-control.png';
-touch_control_diagram.style.width = '80%';
-touch_control_diagram.style.height = '60%';
 
 
-if(window.matchMedia("(pointer: coarse)").matches) {
-  touchscreen = true;
-  footer.childNodes[3].childNodes[3].style.display = 'none';
-  footer.childNodes[3].appendChild(touch_control_diagram)
+//anonimous function to indicate if user's device has a touchscreen to apply appropriate styling 
+window.addEventListener('load',()=>{
+  if(window.matchMedia("(pointer: coarse)").matches) {
+    touchscreen = true;
+    footer.childNodes[3].style.display = 'none';
+    for(let i = 5; i<=11; i++){
+      if(i%2!==0){
+        section.childNodes[i].style.border = '1px #1adb0f solid'
+      }
+    }
+  }
+})
+
+
+/**
+ * @function show_instuctions_for_touchscreens
+ * @description showing game instuctions if user uses touchscreen-friendly device
+ */
+function show_instuctions_for_touchscreens(){
+  if(touchscreen === true){
+  let div = document.createElement('div');
+  div.style.position = 'absolute';
+  div.style.top = 0;
+  div.style.left = 0;
+  div.style.width = '100%';
+  div.style.height = '100%';
+  div.style.background = 'url(./touch-control.png)center center/contain no-repeat';
+  canvas.style.display = 'none';
+  section.appendChild(div);
+  setTimeout(() => {
+    canvas.style.display = 'initial';
+    section.removeChild(section.childNodes[17])
+  }, 4000);  
+}
 }
 
 
