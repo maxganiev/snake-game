@@ -462,8 +462,8 @@ let y_dif;
 
 //main function to detect the meal that was eaten by the snake (game scores are being increased) or if the snake hits itself (snake's lifes getting decreased with final game over)
 function collisionDetector(){
-  x_dif = nose.x - meal.x || sideL.x - meal.x || sideR.x - meal.x;
-  y_dif = nose.y - meal.y || sideL.y - meal.y || sideR.y - meal.y;
+  x_dif = nose.x - meal.x;
+  y_dif = nose.y - meal.y;
   
   //distance between snake's head and meal along X and Y axis
   distance = Math.sqrt(Math.floor(x_dif*x_dif) + Math.floor(y_dif*y_dif));
