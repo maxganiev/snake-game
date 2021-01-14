@@ -248,7 +248,7 @@ window.addEventListener('load',()=>{
     footer.childNodes[3].style.display = 'none';
     for(let i = 5; i<=11; i++){
       if(i%2!==0){
-        section.childNodes[i].style.border = '0.1px #1adb0f ridge'
+        section.childNodes[i].style.border = '0.1px #1adb0f dashed';
       }
     }
   }
