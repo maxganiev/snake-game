@@ -180,7 +180,7 @@ section #touch-right-area {
   top: 0;
   right: 0;
   height: 100%;
-  width: 30%;
+  width: 20%;
 }
 
 section #touch-left-area {
@@ -188,7 +188,7 @@ section #touch-left-area {
   top: 0;
   left: 0;
   height: 100%;
-  width: 30%;
+  width: 20%;
 }
 
 section #touch-up-area {
@@ -196,7 +196,7 @@ section #touch-up-area {
   top: 0;
   left: 20.3%;
   height: 40%;
-  width: 49%;
+  width: 59%;
 }
 
 section #touch-down-area {
@@ -204,7 +204,7 @@ section #touch-down-area {
   bottom: 0;
   left: 20.3%;
   height: 40%;
-  width: 49%;
+  width: 59%;
 }
 
 footer {
